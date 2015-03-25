@@ -130,6 +130,7 @@
 
   </screens>
 
+  <!-- Unused
   <plugins>
     <vrpn>
       <floor x='0.0'/>
@@ -153,4 +154,5 @@
       <room warmth='32' />
     </osc>
   </plugins>
+  -->
 </blenderVR>
