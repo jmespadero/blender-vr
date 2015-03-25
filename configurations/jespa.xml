@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<blenderVR>
+  <!-- Documentation can be found on blenderVR web site: http://blendervr.limsi.fr/doku.php?id=doc:config -->
+
+  <starter blender='/home/jespa/bin/blender-vr/blender/blender'>
+    <config name='console'>console</config>
+    <config name='remote'>remote</config>
+    <config name='remote Dual'>console, remote</config>
+    <config name='split'>console half left, console half right</config>
+  </starter>
+
+  <users>
+    <user name="user A"/>
+  </users>
+
+  <computers>
+    <system>
+      <blenderplayer executable='/home/jespa/bin/blender-vr/blender/blenderplayer' />
+      <!-- Debug
+       <login remote_command="ssh `self._attributs_inheritance['hostname']`" />
+	   <login remote_command="`print(self._attributs_inheritance)`" />
+      -->
+       <login remote_command="ssh `self._attributs_inheritance['hostname']`" />
+    </system>
+    <computer name='Any' hostname='*' />
+    <computer name='remote'  hostname='212.128.1.223' />
+    <computer name='left-pc'  hostname='212.128.1.223' />
+    <computer name='right-pc' hostname='212.128.1.223' />
+    <computer name='floor-pc' hostname='212.128.1.223' />
+
+    
+  </computers>
+
+  <screens>
+    <screen name="console" computer="Any">
+      <display options="-w 400 400">
+          <environment>DISPLAY=:0.0</environment>
+          <graphic_buffer buffer="mono" user='user A' eye="middle"/>
+      </display>
+      <wall>
+          <corner name="topRightCorner">1.0, 1.0, -1.0</corner>
+          <corner name="topLeftCorner">-1.0, 1.0, -1.0</corner>
+          <corner name="bottomRightCorner">1.0, -1.0, -1.0</corner>
+      </wall>
+    </screen>
+
+    <screen name="remote" computer="remote">
+      <display options="-w 300 300">
+	    <environment>DISPLAY=:0.0</environment>
+	    <graphic_buffer buffer="mono" user='user A' eye="middle" />
+      </display>
+      <wall>
+	    <corner name="topRightCorner">1.0, 1.0, -1.0</corner>
+	    <corner name="topLeftCorner">-1.0, 1.0, -1.0</corner>
+	    <corner name="bottomRightCorner">1.0, -1.0, -1.0</corner>
+      </wall>
+    </screen>
+
+    <screen name="console half left" computer="Any">
+      <display options="-w 400 400 200 300">
+        <environment>DISPLAY=:0.0</environment>
+        <graphic_buffer user='user A'/>
+      </display>
+      <wall>
+         <corner name="topRightCorner">0.0, 1.0, -1.0</corner>
+         <corner name="topLeftCorner">-1.0, 1.0, -1.0</corner>
+         <corner name="bottomRightCorner">0.0, -1.0, -1.0</corner>
+      </wall>
+    </screen>
+
+    <screen name="console half right" computer="Any">
+      <display options="-w 400 400 600 300">
+        <environment>DISPLAY=:0.0</environment>
+        <graphic_buffer user='user A'/>
+      </display>
+      <wall>
+        <corner name="topRightCorner">1.0, 1.0, -1.0</corner>
+        <corner name="topLeftCorner">0.0, 1.0, -1.0</corner>
+        <corner name="bottomRightCorner">1.0, -1.0, -1.0</corner>
+      </wall>
+    </screen>
+
+    <screen name="front" computer="Any">
+      <display options="-w 400 300 600 300">
+	    <environment>DISPLAY=:0.0</environment>
+        <graphic_buffer buffer="mono" user='user A' eye="middle"/>
+      </display>
+      <wall>
+	<corner name="topRightCorner">1.0, 1.0, -1.0</corner>
+	<corner name="topLeftCorner">-1.0, 1.0, -1.0</corner>
+	<corner name="bottomRightCorner">1.0, -1.0, -1.0</corner>
+      </wall>
+    </screen>
+
+    <screen name="left" computer="Any">
+      <display options="-w 400 300 200 300">
+	<environment>DISPLAY=:0.0</environment>
+	<graphic_buffer user='user A'/>
+      </display>
+      <wall>
+	<corner name="topRightCorner">-1.0, 1.0, -1.0</corner>
+	<corner name="topLeftCorner">-1.0,  1.0,  1.0</corner>
+	<corner name="bottomRightCorner">-1.0, -1.0, -1.0</corner>
+      </wall>
+    </screen>
+
+    <screen name="right" computer="Any">
+      <display options="-w 400 300 1000 300">
+	<environment>DISPLAY=:0.0</environment>
+	<graphic_buffer user='user A'/>
+      </display>
+      <wall>
+	<corner name="topRightCorner">1.0, 1.0,  1.0</corner>
+	<corner name="topLeftCorner">1.0,  1.0, -1.0</corner>
+	<corner name="bottomRightCorner">1.0, -1.0,  1.0</corner>
+      </wall>
+    </screen>
+
+    <screen name="floor" computer="Any">
+      <display options="-w 400 300 600 600">
+	<environment>DISPLAY=:0.0</environment>
+	<graphic_buffer user='user A'/>
+      </display>
+      <wall>
+	<corner name="topRightCorner">1.0, -1.0, -1.0</corner>
+	<corner name="topLeftCorner">-1.0, -1.0, -1.0</corner>
+	<corner name="bottomRightCorner">1.0, -1.0, 1.0</corner>
+      </wall>
+    </screen>
+
+  </screens>
+
+  <plugins>
+    <vrpn>
+      <floor x='0.0'/>
+      <tracker device="GTK" host="localhost">
+  <transformation>
+    <post_translation z="-1.6"/>
+    <post_rotation x="1.0" y="1.0" z="1.0" angle="`-2*math.pi/3`"/>
+    <pre_rotation x="1.0" y="1.0" z="1.0" angle="`2*math.pi/3`"/>
+  </transformation>
+  <sensor id="0" processor_method='tracker_1'/>
+  <sensor id="1" processor_method='tracker_3'/>
+  <sensor id="2" processor_method='user_position' users='user A'/>
+  <sensor id="3" processor_method='tracker_2'/>
+      </tracker>
+      <analog device="GTK" host="localhost" processor_method="movements"/>
+      <button device="GTK" host="localhost" processor_method="buttons"/>
+    </vrpn>
+    <osc host='194.57.41.131' port='3819' configuration='ambisonic EVE'>
+      <user listener='binaural 1' viewer='user A' />
+      <user listener='Ambisonic' />
+      <room warmth='32' />
+    </osc>
+  </plugins>
+</blenderVR>
