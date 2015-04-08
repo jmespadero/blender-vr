@@ -64,7 +64,7 @@ class User(Base):
 
         self._parent = None
 
-        self.blenderVR.addObjectToSynchronize(self,
+        self.BlenderVR.addObjectToSynchronize(self,
                                     'userSynchronization-' + self._name)
 
     def getID(self):
@@ -74,6 +74,13 @@ class User(Base):
         return self._name
 
     def getPosition(self):
+        """
+        get user position in the virtual environment.
+
+        Args: None
+
+        Returns: 4x4 mathutils.Matrix (rotation and location).
+        """
         return self._position
 
     def getVehiclePosition(self, internal=False):
